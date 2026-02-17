@@ -1,3 +1,6 @@
+const {validationResult}=require('express-validator');
+
+
 
 const getAllPosts=(req,res)=>{
     const {sortBy}=req.query;
@@ -39,25 +42,24 @@ const getPostById = (req,res)=>{
     }
 }
 
-const getPostWithAuthor = async (req, res, next) => {
-  try {
-    // This function is supposed to get the post
-    const post = await db.getPostById(req.params.postId); 
+// This is the code in your posts.controller.js file
 
-    // This function is supposed to get the author
-    const author = await db.getUserById(post.authorId); // Let's assume post.authorId is correct
-
-    // This is a bug! The developer forgot to get the user data.
-    const authorName = user.name; // 'user' is undefined!
-
-    res.status(200).json({ post, authorName });
-  } catch (error) {
-    next(error);
+const createPost = (req, res) => {
+  // The developer is trying to get the title from the request body.
+  const errors = validationResult(req); 
+  
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array()});
   }
-};
 
+  const {title,content}=req.body
+
+  // (Imagine database logic to save the post would go here)
+
+  res.status(201).json({ message: `Post created` });
+};
 module.exports={
     getAllPosts, 
     getPostById,
-    getPostWithAuthor
+    createPost
 }
