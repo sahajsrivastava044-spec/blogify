@@ -5,20 +5,20 @@ const postService=require('../service/posts.service.js')
 
 
 const getAllPosts=async (req,res)=>{
-    let posts=await postService.getAllPosts();
+    let posts=await postService.getAllPosts(req.query);
     // if(sortBy==='date'){
     //     posts.sort((a,b)=>new Date(a.date) - new Date(b.date));
     //     console.log('Sorting posts by date...');
     // }
-    console.log(posts,"HH")
     res.status(200).json({
         message: 'Posts handled successfully',
         data: posts
     });
 }
 
-const getPostById = (req,res)=>{
-    let allPosts
+const getPostById = async (req,res)=>{
+    const id = req.params.id;
+    const post = await postService.PostsById(id);
 
     if(post){
         console.log(`Found post with id ${id}`);
@@ -33,10 +33,6 @@ const getPostById = (req,res)=>{
         })
     }
 }
-
-// This is the code in your posts.controller.js file
-
-
 const createPost = async (req, res, next) => {
   try {
     const newPost = await Post.create(req.body); 
@@ -45,6 +41,13 @@ const createPost = async (req, res, next) => {
     next(error);
   }
 };
+
+const updatePost=async()=>{
+    const id = req.params.id;
+    const data=req.body
+    const postUpdate=postService.updateData(id,data);
+    
+}
 module.exports={
     getAllPosts, 
     getPostById,
