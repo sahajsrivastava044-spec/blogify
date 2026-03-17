@@ -1,32 +1,24 @@
 const {validationResult}=require('express-validator');
+const Post = require('../models/post.model.js');
+const postService=require('../service/posts.service.js')
 
 
 
-const getAllPosts=(req,res)=>{
-    const {sortBy}=req.query;
-    const posts = [
-        {id:2,title:'Controller Post 2',date:'2026-4-26'},
-        {id:1,title:'Controller Post 1',date:'2024-7-05'}
-    ];
-    if(sortBy==='date'){
-        posts.sort((a,b)=>new Date(a.date) - new Date(b.date));
-        console.log('Sorting posts by date...');
-    }
-    console.log(posts)
+const getAllPosts=async (req,res)=>{
+    let posts=await postService.getAllPosts(req.query);
+    // if(sortBy==='date'){
+    //     posts.sort((a,b)=>new Date(a.date) - new Date(b.date));
+    //     console.log('Sorting posts by date...');
+    // }
     res.status(200).json({
         message: 'Posts handled successfully',
         data: posts
     });
 }
 
-const getPostById = (req,res)=>{
-    const {id}=req.params;
-    const posts=[
-        {id:2,title:'Controller Post 2', date: '2026-4-26'},
-        {id:1,title:'Controller Post 1', date: '2024-7-05'}
-    ];
-
-    const post = posts.find(p=>p.id===parseInt(id));
+const getPostById = async (req,res)=>{
+    const id = req.params.id;
+    const post = await postService.PostsById(id);
 
     if(post){
         console.log(`Found post with id ${id}`);
@@ -41,23 +33,21 @@ const getPostById = (req,res)=>{
         })
     }
 }
-
-// This is the code in your posts.controller.js file
-
-const createPost = (req, res) => {
-  // The developer is trying to get the title from the request body.
-  const errors = validationResult(req); 
-  
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array()});
+const createPost = async (req, res, next) => {
+  try {
+    const newPost = await Post.create(req.body); 
+    res.status(201).json({ success: true, data: newPost });
+  } catch (error) {
+    next(error);
   }
-
-  const {title,content}=req.body
-
-  // (Imagine database logic to save the post would go here)
-
-  res.status(201).json({ message: `Post created` });
 };
+
+const updatePost=async()=>{
+    const id = req.params.id;
+    const data=req.body
+    const postUpdate=postService.updateData(id,data);
+    
+}
 module.exports={
     getAllPosts, 
     getPostById,
