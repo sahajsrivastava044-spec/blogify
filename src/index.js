@@ -8,7 +8,11 @@ const cors=require('cors');
 
 const connectDB=require('./Config/db');
 
+const cookieParser = require('cookie-parser');
+
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.use(cors())
 
@@ -22,7 +26,7 @@ const router = require('./routes');
 const User = require('./models/user.model');
 
 connectDB();
-
+app.use('/api/v1/auth',router);
 app.use('/api/v1/posts',router);
 
 app.post("/api/v1/users",async(req,res,next)=>{
