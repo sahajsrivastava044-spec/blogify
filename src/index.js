@@ -6,7 +6,7 @@ const app = express();
 
 const cors=require('cors');
 
-const connectDB=require('./Config/db');
+const connectDB=require('./config/db');
 
 const cookieParser = require('cookie-parser');
 

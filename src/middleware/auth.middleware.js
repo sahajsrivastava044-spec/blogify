@@ -10,7 +10,7 @@ const protect = async (req, res, next) => {
   if (!token) {
     return res.status(401).json({ message: 'Not authorized to access this route' });
   }
-  
+
   else if (
     req.headers.authorization &&
     req.headers.authorization.startsWith('Bearer')
