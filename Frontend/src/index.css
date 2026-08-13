@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;700&display=swap');
+
+:root {
+  --font-heading: 'Playfair Display', serif;
+  --font-info: 'Inter', sans-serif;
+  
+  /* Scholastic Theme Colors */
+  --color-navy: #1B263B;
+  --color-burgundy: #780000;
+  --color-gold: #D4AF37;
+  --color-forest: #2C5F2D;
+  --color-ink: #0D1B2A;
+  
+  --primary-gradient: linear-gradient(
+    135deg,
+    var(--color-navy),
+    var(--color-burgundy)
+  );
+
+  --bg-color: #F4F1EA;
+  --text-color: #1A1A1A;
+  --card-bg: #ffffff;
+  
+  --border-sharp: 6px;
+  --box-shadow: 0px 8px 24px rgba(27, 38, 59, 0.08);
+  --box-shadow-hover: 0px 12px 32px rgba(27, 38, 59, 0.12);
+  --border-thickness: 1px;
+  --border-color: #E2D9C8;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-info);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
+  background-image: radial-gradient(circle at 15% 30%, rgba(120, 0, 0, 0.04) 0%, transparent 35%),
+                    radial-gradient(circle at 85% 70%, rgba(27, 38, 59, 0.04) 0%, transparent 35%);
+  position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--color-ink);
+}
+
+.premium-card {
+  background: var(--card-bg);
+  border: var(--border-thickness) solid var(--border-color);
+  border-radius: var(--border-sharp);
+  box-shadow: var(--box-shadow);
+  padding: 2.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.premium-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: var(--primary-gradient);
+}
+
+.premium-btn {
+  font-family: var(--font-info);
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  background: var(--card-bg);
+  border: 1px solid var(--color-navy);
+  color: var(--color-navy);
+  border-radius: var(--border-sharp);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  z-index: 10;
+}
+
+.premium-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(27, 38, 59, 0.15);
+  background: #F8F9FA;
+}
+
+.premium-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(27, 38, 59, 0.15);
+}
+
+.premium-btn-primary {
+  background: var(--color-navy);
+  color: white;
+  border-color: var(--color-navy);
+}
+
+.premium-btn-primary:hover {
+  background: var(--color-ink);
+  color: white;
+}
+
+.premium-input {
+  font-family: var(--font-info);
+  font-size: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-sharp);
+  width: 100%;
+  margin-bottom: 1.25rem;
+  background: #FAFAFA;
+  transition: all 0.2s ease;
+  color: var(--text-color);
+}
+
+.premium-input:focus {
+  outline: none;
+  border-color: var(--color-gold);
+  background: #FFF;
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 3rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 15px rgba(0,0,0,0.03);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-brand {
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  color: var(--color-navy);
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 85px);
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.auth-box {
+  width: 100%;
+  max-width: 450px;
+}
+
+/* Floating background styles */
+.floating-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.floating-icon {
+  position: absolute;
+  font-size: 3rem;
+  opacity: 0.08; /* Very light */
+  filter: sepia(0.8) hue-rotate(180deg) saturate(0.5); /* Scholastic tint to emojis */
+}

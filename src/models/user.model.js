@@ -31,13 +31,13 @@ const userSchema = new mongoose.Schema(
 
 userSchema.virtual('fullName').get(function(){
   // return `${this.}`
-  if (!this.fistName){
+  if (!this.firstName){
     return this.lastName
   }
   else if(!this.lastName){
     return this.firstName
   }
-   return `${this.fistName} ${this.lastName}`
+   return `${this.firstName} ${this.lastName}`
 })
 
 
