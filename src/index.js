@@ -22,12 +22,15 @@ const PORT=3001;
 
 // const { getPostWithAuthor } = require('./controllers/posts.controller');
 
-const router = require('./routes');
+// const router = require('./routes');
+
+const authRouter = require('./routes/auth.routes');
+const postsRouter = require('./routes/posts.routes');
 const User = require('./models/user.model');
 
 connectDB();
-app.use('/api/v1/auth',router);
-app.use('/api/v1/posts',router);
+app.use('/api/v1/auth',authRouter);
+app.use('/api/v1/posts',postsRouter);
 
 app.post("/api/v1/users",async(req,res,next)=>{
   try{

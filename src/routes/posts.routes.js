@@ -17,6 +17,8 @@ router.get("/:id",protect,postController.getPostById)
 
 router.post('/',registrationRules,protect,postController.createPost);
 
+router.put('/:id',registrationRules,protect,postController.updatePost);
+
 router.delete('/:id',protect,postController.deletePost);
 router.post('/test-body',(req,res)=>{
     console.log('Received body:',req.body);
